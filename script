@@ -1,0 +1,40 @@
+// script.js
+
+let score = 0; // Счёт игрока
+const square = document.getElementById('square'); // Квадрат
+const scoreDisplay = document.getElementById('score'); // Отображение счёта
+const gameContainer = document.getElementById('game-container'); // Поле игры
+
+// Функция для случайного цвета
+function getRandomColor() {
+  const colors = ['red', 'blue', 'green', 'purple', 'orange', 'pink'];
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+
+// Функция для случайной позиции
+function getRandomPosition() {
+  const containerWidth = gameContainer.offsetWidth - 50; // Ширина контейнера минус размер квадрата
+  const containerHeight = gameContainer.offsetHeight - 50; // Высота контейнера минус размер квадрата
+  const x = Math.floor(Math.random() * containerWidth);
+  const y = Math.floor(Math.random() * containerHeight);
+  return { x, y };
+}
+
+// Обработчик клика по квадрату
+square.addEventListener('click', () => {
+  score++; // Увеличиваем счёт
+  scoreDisplay.textContent = score; // Обновляем отображение счёта
+  changeSquarePosition(); // Меняем позицию квадрата
+  square.style.backgroundColor = getRandomColor(); // Меняем цвет квадрата
+});
+
+// Функция для изменения позиции квадрата
+function changeSquarePosition() {
+  const { x, y } = getRandomPosition();
+  square.style.left = `${x}px`;
+  square.style.top = `${y}px`;
+}
+
+// Запускаем игру
+changeSquarePosition(); // Начальная позиция квадрата
+setInterval(changeSquarePosition, 2000); // Каждые 2 секунды меняем позицию квадрата
